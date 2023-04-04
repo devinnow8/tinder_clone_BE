@@ -27,7 +27,6 @@ const routes = (app) => {
   app.post('/createUser', (req, res) => {
     if (!req.body.name ||
       !req.body.email ||
-      !req.body.age ||
       !req.body.dob ||
       !req.body.phoneNumber ||
       !req.body.gender ||
@@ -38,8 +37,7 @@ const routes = (app) => {
       !req.body.school ||
       !req.body.passions ||
       !req.body.photos ||
-      !req.body.currentLocation ||
-      !req.body.isNotificationOn) {
+      !req.body.currentLocation) {
       return res.send({ status: 500, error: "Validation error" })
     }
     let newUser = new User({

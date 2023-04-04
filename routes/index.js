@@ -64,7 +64,6 @@ const routes = (app) => {
       const token = user.getJWTToken()
       res.send({ status: 200, data: user, token })
     }).catch((error) => {
-      console.log("error", error)
       res.send({ status: 500, error })
     })
   })

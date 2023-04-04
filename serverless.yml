@@ -1,0 +1,30 @@
+service: tinderCloneBE
+frameworkVersion: '3'
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-south-1
+  iamRoleStatements:
+    - Effect: Allow
+      Resource: '*'
+functions:
+  app:
+    handler: start.run
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+plugins:
+  - serverless-offline
+  - serverless-ngrok-tunnel
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+  ngrokTunnel:
+    tunnels:
+      - port: 4000

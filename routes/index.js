@@ -62,7 +62,6 @@ const routes = (app) => {
     })
     newUser.save().then((user) => {
       const token = user.getJWTToken()
-      console.log("token", token)
       res.send({ status: 200, data: user, token })
     }).catch((error) => {
       console.log("error", error)

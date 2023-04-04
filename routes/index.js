@@ -17,7 +17,8 @@ const routes = (app) => {
   // get user by phone number
   app.get('/getUsers', (req, res) => {
     User.find({ phoneNumber: req.query.phoneNumber || "" }).then((users) => {
-      res.send({ status: 200, data: users })
+      const token = users.getJWTToken()
+      res.send({ status: 200, data: users, token })
     }).catch((error) => {
       res.send({ status: 500, error })
     })
@@ -60,8 +61,11 @@ const routes = (app) => {
       isNotificationOn: req.body.isNotificationOn
     })
     newUser.save().then((user) => {
-      res.send({ status: 200, data: user })
+      const token = user.getJWTToken()
+      console.log("token", token)
+      res.send({ status: 200, data: user, token })
     }).catch((error) => {
+      console.log("error", error)
       res.send({ status: 500, error })
     })
   })

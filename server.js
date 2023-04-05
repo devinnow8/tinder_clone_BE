@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyparser = require('body-parser')
 const cors = require('cors');
 const dotenv = require('dotenv');
+const errorMiddleware = require("./middleware/error");
 
 dotenv.config();
 
@@ -20,10 +21,14 @@ mongoose.connect('mongodb+srv://msharma:msharma@cluster0.fx1aae9.mongodb.net/tin
   useUnifiedTopology: true,
 });
 
-require('./routes')(app)
+//Route Imports
+const userRoutes = require("./routes/userRoutes");
 
-// app.listen(8000, () => {
-//   console.log('Server listening on port 8000');
-// });
+app.use("",userRoutes);
+
+// require('./routes/userRoutes')(app)
+
+app.use(errorMiddleware)
+
 
 module.exports = app;

@@ -4,7 +4,6 @@ const catchAsyncErrors = require('../middleware/catchAsyncError')
 // get user by phone number
 exports.getUsers = catchAsyncErrors(async (req, res, next) => {
   const users = await User.findOne({ phoneNumber: req.query.phoneNumber || "" })
-  res.send({ users })
   const token = users.getJWTToken()
   res.status(200).json({
     success: true,
@@ -16,7 +15,6 @@ exports.getUsers = catchAsyncErrors(async (req, res, next) => {
 // get user by id
 exports.getUsersById = catchAsyncErrors(async (req, res, next) => {
   const users = await User.findOne({ _id: req.params.id || "" })
-  res.send({ users })
   const token = users.getJWTToken()
   res.status(200).json({
     success: true,

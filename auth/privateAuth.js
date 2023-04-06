@@ -1,6 +1,6 @@
-import { auth } from "./auth.js";
+const auth = require("./auth.js");
 
-export const privateAuth = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const publicRoutes = "/noAuth"
 
@@ -15,3 +15,4 @@ export const privateAuth = async (req, res, next) => {
     res.status(401).json({ message: error.message });
   }
 };
+

@@ -1,16 +1,15 @@
-import jwt from "jsonwebtoken";
+const jwt =  require("jsonwebtoken");
 
-export const auth = async (req, res, next) => {
-  let secretKey = process.env.jwt_secret_key;
+module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    let validToken = false;
+    let validToken = "";
     if (token) {
       validToken = token.slice(7);
     }
     if (!token)
       return res.status(401).json({ error: "Access Denied" });
-    if (jwt.verify(validToken, secretKey)) {
+    if (jwt.verify(validToken, process.env.JWT_SECRET)) {
       next();
     } else {
       return res.status(400).json({ error: "Invalid token." });
@@ -19,3 +18,4 @@ export const auth = async (req, res, next) => {
     res.status(400).json({ message: error.message });
   }
 };
+

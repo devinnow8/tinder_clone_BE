@@ -4,7 +4,7 @@ const bodyparser = require('body-parser')
 const cors = require('cors');
 const dotenv = require('dotenv');
 const errorMiddleware = require("./middleware/error");
-import { privateAuth } from "./auth/privateAuth";
+const privateAuth = require("./auth/privateAuth");
 
 dotenv.config();
 

@@ -6,12 +6,12 @@ const {
   updateUser
 } = require("../controllers/userController");
 
-const router = express.Router();
+const users = express()
 
-router.route("/getUsers").get(getUsers);
-router.route("/getUser/:id").get(getUsersById);
-router.route("/createUser").post(createUser);
-router.route("/updateUser/:id").post(updateUser)
+users.get("/getUsers", getUsers);
+users.get("/getUser/:id", getUsersById);
+users.post("/createUser", createUser);
+users.post("/updateUser/:id", updateUser)
 
 
-module.exports = router;
+module.exports = users;

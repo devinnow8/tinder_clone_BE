@@ -22,11 +22,9 @@ mongoose.connect('mongodb+srv://msharma:msharma@cluster0.fx1aae9.mongodb.net/tin
 });
 
 //Route Imports
-const userRoutes = require("./routes/userRoutes");
+const routes = require("./routes");
 
-app.use("",userRoutes);
-
-// require('./routes/userRoutes')(app)
+app.use("", routes);
 
 app.use(errorMiddleware)
 

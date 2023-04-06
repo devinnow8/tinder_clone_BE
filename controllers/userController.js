@@ -26,22 +26,6 @@ exports.getUsers = catchAsyncErrors(async (req, res, next) => {
 
 // create user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
-    if (!req.body.name ||
-        !req.body.email ||
-        !req.body.dob ||
-        !req.body.phoneNumber ||
-        !req.body.gender ||
-        !req.body.includeMeInSearch ||
-        !req.body.sexualOrientation ||
-        !req.body.interestedIn ||
-        !req.body.lookingFor ||
-        !req.body.school ||
-        !req.body.passions ||
-        !req.body.photos ||
-        !req.body.currentLocation) {
-        return res.send({ status: 500, error: "Validation error" })
-      }
-
       let newUser = new User({
         name: req.body.name,
         email: req.body.email,
@@ -62,8 +46,8 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
         isNotificationOn: req.body.isNotificationOn
       })
 
-      const createdUser = await User.save(newUser)
-      const token = users.getJWTToken()
+      const createdUser = await User.create(newUser)
+      const token = createdUser.getJWTToken()
       res.status(200).json({
         success: true,
         createdUser,

@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {type: Number, required: [true, "Please Enter Your Phone Number"], unique: true},
     gender: {type: String, required: [true, "Please Specify your gender"]},
     isShowGender: {type: Boolean},
+    matches: {type: Array},
     includeMeInSearch: {type: Array},
     sexualOrientation: {type: Array},
     isShowOrientation: {type: Boolean},

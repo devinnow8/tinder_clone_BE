@@ -1,8 +1,9 @@
 const User = require("../models/user")
+const Swipe = require("../models/swipes")
 const catchAsyncErrors = require('../middleware/catchAsyncError')
 
 // get user by phone number
-exports.getUsers = catchAsyncErrors(async (req, res, next) => {
+exports.getUsers = catchAsyncErrors(async (req, res) => {
   const users = await User.findOne({ phoneNumber: req.query.phoneNumber || "" })
   const token = users.getJWTToken()
   res.status(200).json({
@@ -13,7 +14,7 @@ exports.getUsers = catchAsyncErrors(async (req, res, next) => {
 });
 
 // get user by id
-exports.getUsersById = catchAsyncErrors(async (req, res, next) => {
+exports.getUsersById = catchAsyncErrors(async (req, res) => {
   const users = await User.findOne({ _id: req.params.id || "" })
   const token = users.getJWTToken()
   res.status(200).json({
@@ -24,7 +25,7 @@ exports.getUsersById = catchAsyncErrors(async (req, res, next) => {
 });
 
 // create user
-exports.createUser = catchAsyncErrors(async (req, res, next) => {
+exports.createUser = catchAsyncErrors(async (req, res) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -47,6 +48,14 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 
   const createdUser = await User.create(newUser)
   const token = createdUser.getJWTToken()
+
+  let newSwipe = new Swipe({
+    userId: createdUser._id,
+    swipes: []
+  })
+
+  await Swipe.create(newSwipe)
+
   res.status(200).json({
     success: true,
     createdUser,
@@ -55,7 +64,7 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 // update user
-exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+exports.updateUser = catchAsyncErrors(async (req, res) => {
   const id = req.params.id;
   const updatedUser = await User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
   res.status(200).json({

@@ -4,6 +4,7 @@ const bodyparser = require('body-parser')
 const cors = require('cors');
 const dotenv = require('dotenv');
 const errorMiddleware = require("./middleware/error");
+const privateAuth = require("./auth/privateAuth");
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ mongoose.connect('mongodb+srv://msharma:msharma@cluster0.fx1aae9.mongodb.net/tin
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+app.use(privateAuth);
+
 
 //Route Imports
 const routes = require("./routes");

@@ -8,8 +8,8 @@ const {
 
 const users = express()
 
-users.get("/getUsers", getUsers);
-users.get("/getUser/:id", getUsersById);
+users.get("/noAuth/getUsers", getUsers);
+users.get("/noAuth/getUser/:id", getUsersById);
 users.post("/createUser", createUser);
 users.post("/updateUser/:id", updateUser)
 

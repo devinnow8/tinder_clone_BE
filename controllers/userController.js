@@ -42,9 +42,12 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
     passions: req.body.passions,
     photos: req.body.photos,
     currentLocation: req.body.currentLocation,
-    isNotificationOn: req.body.isNotificationOn
-  })
-
+    isNotificationOn: req.body.isNotificationOn,
+    isTnCAccepted: req.body.isTnCAccepted,
+    isOnboardingComplete: req.body.isOnboardingComplete,
+  });
+  console.log("requrest to create a new user received!!!!");
+  console.log(req.body);
   const createdUser = await User.create(newUser)
   const token = createdUser.getJWTToken()
   res.status(200).json({

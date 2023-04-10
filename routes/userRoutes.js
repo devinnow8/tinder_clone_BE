@@ -10,7 +10,7 @@ const users = express()
 
 users.get("/noAuth/getUsers", getUsers);
 users.get("/noAuth/getUser/:id", getUsersById);
-users.post("/createUser", createUser);
+users.post("/noAuth/createUser", createUser);
 users.post("/updateUser/:id", updateUser)
 
 

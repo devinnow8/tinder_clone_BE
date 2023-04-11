@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: Number, required: [true, "Please Enter Your Phone Number"], unique: true },
   gender: { type: String },
   isShowGender: { type: Boolean },
-  includeMeInSearch: { type: Array },
+  includeMeInSearch: { type: String },
   sexualOrientation: { type: Array },
   isShowOrientation: { type: Boolean },
-  interestedIn: { type: Array, required: [true, "Please Specify your interest"] },
+  interestedIn: { type: String },
   lookingFor: { type: String },
   school: { type: String },
   passions: { type: Array },
@@ -29,15 +29,16 @@ const userSchema = new mongoose.Schema({
   isNotificationOn: { type: Boolean },
 });
 
-  userSchema.path('email').validate(async (value) => {
-    const emailCount = await mongoose.models.user.countDocuments({email: value });
-    return !emailCount;
-  }, 'Email already exists');
+userSchema.path("email").validate(async (value) => {
+  const emailCount = await mongoose.models.user.countDocuments({ email: value });
+  return !emailCount;
+}, "Email already exists");
 
-  userSchema.path('phoneNumber').validate(async (value) => {
-    const phoneNumCount = await mongoose.models.user.countDocuments({phoneNumber: value });
-    return !phoneNumCount;
-  }, 'Phone number already exists');
+userSchema.path("phoneNumber").validate(async (value) => {
+  const phoneNumCount = await mongoose.models.user.countDocuments({ phoneNumber: value });
+  console.log("--------------------->>>>count of phone num" + phoneNumCount);
+  return !phoneNumCount;
+}, "Phone number already exists");
 
   userSchema.methods.getJWTToken = function (){
     return jwt.sign({id: this._id}, process.env.JWT_SECRET)

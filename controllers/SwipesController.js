@@ -1,6 +1,8 @@
 const User = require("../models/user")
 const Swipes = require("../models/swipes")
-const catchAsyncErrors = require('../middleware/catchAsyncError')
+const catchAsyncErrors = require('../middleware/catchAsyncError');
+const catchAsyncError = require("../middleware/catchAsyncError");
+const swipes = require("../models/swipes");
 
 // swipe like
 exports.like = catchAsyncErrors(async (req, res) => {
@@ -41,6 +43,29 @@ exports.like = catchAsyncErrors(async (req, res) => {
     return res.send({ status: 400, error: "already swiped" })
   }
 });
+
+exports.likeSwipe = catchAsyncError(async (req, res, next) => {
+  const { swiperId, targetId } = req.body
+  let isMatch = false
+  const matchedData = Swipes.findOne({swiperId:targetId, targetId: swiperId, action: 'like' })
+  const isAlreadySwiped = Swipes.findOne({swiperId:swiperId, targetId: targetId, action: 'like' })
+  if(isAlreadySwiped){
+    res.send({ status: 405, message: "operation already performed" })
+  }
+  if(matchedData){
+    isMatch = true
+  }
+  const addedDoc = await Swipes.create({
+    
+      swiperId: swiperId,
+      targetId,
+      action: "like"
+    
+  }
+  )
+  res.send({ status: 200, isMatch, message: "liked successfully",addedDoc })
+
+})
 
 // swipe dislike
 exports.dislike = catchAsyncErrors(async (req, res) => {

@@ -17,7 +17,7 @@ app.use(cors({
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
-mongoose.connect('mongodb+srv://msharma:msharma@cluster0.fx1aae9.mongodb.net/tinder_clone', {
+mongoose.connect('mongodb+srv://ashutosh:urWlL9opRqN9pIBu@cluster0.76uhodp.mongodb.net/tinder_clone', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

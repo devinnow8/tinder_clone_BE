@@ -43,9 +43,12 @@ exports.createUser = catchAsyncErrors(async (req, res) => {
     passions: req.body.passions,
     photos: req.body.photos,
     currentLocation: req.body.currentLocation,
-    isNotificationOn: req.body.isNotificationOn
-  })
-
+    isNotificationOn: req.body.isNotificationOn,
+    isTnCAccepted: req.body.isTnCAccepted,
+    isOnboardingComplete: req.body.isOnboardingComplete,
+  });
+  console.log("requrest to create a new user received!!!!");
+  console.log(req.body);
   const createdUser = await User.create(newUser)
   const token = createdUser.getJWTToken()
 
@@ -66,7 +69,11 @@ exports.createUser = catchAsyncErrors(async (req, res) => {
 // update user
 exports.updateUser = catchAsyncErrors(async (req, res) => {
   const id = req.params.id;
-  const updatedUser = await User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  console.log(req.body);
+  const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+    useFindAndModify: false,
+    new: true,
+  });
   res.status(200).json({
     success: true,
     updatedUser,

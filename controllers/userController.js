@@ -60,7 +60,11 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 // update user
 exports.updateUser = catchAsyncErrors(async (req, res, next) => {
   const id = req.params.id;
-  const updatedUser = await User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  console.log(req.body);
+  const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+    useFindAndModify: false,
+    new: true,
+  });
   res.status(200).json({
     success: true,
     updatedUser,

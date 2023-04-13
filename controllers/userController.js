@@ -46,18 +46,12 @@ exports.createUser = catchAsyncErrors(async (req, res) => {
     isNotificationOn: req.body.isNotificationOn,
     isTnCAccepted: req.body.isTnCAccepted,
     isOnboardingComplete: req.body.isOnboardingComplete,
+    matches: []
   });
   console.log("requrest to create a new user received!!!!");
   console.log(req.body);
   const createdUser = await User.create(newUser)
   const token = createdUser.getJWTToken()
-
-  let newSwipe = new Swipe({
-    userId: createdUser._id,
-    swipes: []
-  })
-
-  await Swipe.create(newSwipe)
 
   res.status(200).json({
     success: true,
@@ -79,3 +73,14 @@ exports.updateUser = catchAsyncErrors(async (req, res) => {
     updatedUser,
   })
 });  
+
+// get profiles 
+exports.getProfiles = catchAsyncErrors(async (req, res) => {
+  console.log(req.body);
+  const {interest} = req.body
+  const profiles = await User.find({interestedIn: interest});
+  res.status(200).json({
+    success: true,
+    profiles,
+  })
+}); 

@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
   photos: { type: Array },
   currentLocation: { type: String },
   isNotificationOn: { type: Boolean },
+  matches: {type: Array}
 });
 
 userSchema.path("email").validate(async (value) => {

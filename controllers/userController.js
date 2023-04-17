@@ -77,7 +77,7 @@ exports.updateUser = catchAsyncErrors(async (req, res) => {
 // get profiles 
 exports.getProfiles = catchAsyncErrors(async (req, res) => {
   console.log(req.body);
-  const {interest} = req.body
+  const { interest } = req.body.interestedIn;
   const profiles = await User.find({interestedIn: interest});
   res.status(200).json({
     success: true,

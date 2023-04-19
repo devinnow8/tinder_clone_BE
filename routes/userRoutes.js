@@ -13,7 +13,7 @@ users.get("/noAuth/getUsers", getUsers);
 users.get("/noAuth/getUser/:id", getUsersById);
 users.post("/noAuth/createUser", createUser);
 users.post("/updateUser/:id", updateUser)
-users.post("/noAuth/getMatchingProfiles", getProfiles)
+users.post("/noAuth/getProfiles", getProfiles)
 
 
 

@@ -2,11 +2,9 @@ service: tinderCloneBE
 frameworkVersion: '3'
 provider:
   name: aws
-  runtime: nodejs14.x
-  region: ap-south-1
-  iamRoleStatements:
-    - Effect: Allow
-      Resource: '*'
+  runtime: nodejs16.x
+  region: us-east-1
+
 functions:
   app:
     handler: start.run
@@ -14,10 +12,12 @@ functions:
       - http:
           path: /
           method: ANY
+          cors: true
       - http:
           path: /{proxy+}
           method: ANY
           cors: true
+    timeout: 20
 plugins:
   - serverless-offline
   - serverless-ngrok-tunnel

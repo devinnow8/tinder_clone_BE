@@ -51,8 +51,9 @@ exports.createUser = catchAsyncErrors(async (req, res) => {
   console.log("requrest to create a new user received!!!!");
   console.log(req.body);
   const createdUser = await User.create(newUser)
+  console.log("==>",createdUser)
   const token = createdUser.getJWTToken()
-
+  console.log("chla chal yes yes")
   res.status(200).json({
     success: true,
     createdUser,
@@ -76,9 +77,7 @@ exports.updateUser = catchAsyncErrors(async (req, res) => {
 
 // get profiles 
 exports.getProfiles = catchAsyncErrors(async (req, res) => {
-  console.log(req.body);
-  const {interest} = req.body
-  const profiles = await User.find({interestedIn: interest});
+  const profiles = await User.find();
   res.status(200).json({
     success: true,
     profiles,
